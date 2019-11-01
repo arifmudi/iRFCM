@@ -29,7 +29,7 @@ options.initType         = 2;
 options.gamma            = 0;
 
 %set the number of clusters to 3
-c= 3;
+c= 5;
 
 %run RFCM
 out = irfcm(D,c,options);

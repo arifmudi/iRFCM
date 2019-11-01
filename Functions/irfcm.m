@@ -148,7 +148,8 @@ function output = irfcm(R, c, options)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Update cluster prototypes V
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        V=U.^m;  
+        V=U.^m;
+        new_V = V;
         V = V./(sum(V,2) * ones(1,n));
     
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,7 +163,8 @@ function output = irfcm(R, c, options)
     %prepare output structure
     output = struct('U',U,...
                     'V',V,...
-                    'terminationIter',numIter);
+                    'terminationIter',numIter,...
+                    'new_V',new_V);
                 
     if exist('euc','var'),output.euc = euc;end
     if nargin == 3,output.options = options;end

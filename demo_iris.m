@@ -4,7 +4,8 @@ close all
 
 %load Iris dataset and compute the sup norm squared dissimilarity
 X = load('Data/iris.csv');
-D = squareform(pdist(X,'chebychev'));
+% D = squareform(pdist(X,'chebychev'));
+D = squareform(pdist(X,'euclidean'));
 n = size(D,1);
 
 %compute the normalized dissimilarity image from D
@@ -13,7 +14,7 @@ f = figure('Visible','off');imagesc(D.^2);colormap('gray');colorbar;
 print(f, '-djpeg', 'Results/Iris/Images/Iris.jpg');
 
 %set the number of clusters to 3
-c= 3;
+c=5;
 
 % Assumed ground truth
 labels = [ones(1,50) 2*ones(1,50) 3*ones(1,50)];
@@ -38,6 +39,7 @@ options.gamma            = 0;
 
 %Check if RFCM runs on Iris dataset dissimilarity image. You will see that
 %it will return error indicating failure. 
+addpath('./Functions/')
 out = irfcm(D.^2,c,options);
 if isfield(out,'Error')
    fprintf('%s',out.Error); 
@@ -45,7 +47,7 @@ end
 
 %% Since RFCM failed we need to run iRFCM
 % loop for every delta
-for i=1:length(deltas)
+for i=1: length(deltas)
     eval(deltas{i});
     
     %set delta and run iRFCM
@@ -67,3 +69,5 @@ for i=1:length(deltas)
     U = sparse(labels, 1:length(labels),1,c,length(labels));
     r = rand_index(U,GT,2)
 end
+
+save hasil.mat D out c n;

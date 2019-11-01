@@ -37,6 +37,7 @@ options.initType         = 2;
 options.gamma            = 0;
 
 %RFCM does not fail on the mutation dataset
+addpath('./Functions/')
 out = irfcm(D.^2,c,options);
 U = out.U;
 dlmwrite(sprintf('Results/Mutation/Partitions/U-RFCM(%d).csv',c),U, 'delimiter',',');
