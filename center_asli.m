@@ -18,6 +18,5 @@ for i=1:size(V,1)
        if minDist ==  Dist(iter,i)
           center(i) = iter; 
        end
-    end
-    
+    end    
 end
